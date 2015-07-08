@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include "stack.h"
 
-int32_t stack[stack_size];
+int32_t stack[STACK_SIZE];
 uint8_t sp = 0;
 
 void stack_push(int32_t element)
 {
-    if (sp == stack_size) {
+    if (sp == STACK_SIZE) {
         fprintf(stderr, "ERROR: %s\n", "Stack overflow occured!");
         exit(EXIT_FAILURE);
     }
@@ -16,7 +16,7 @@ void stack_push(int32_t element)
     sp++;
 }
 
-int32_t stack_pop()
+int32_t stack_pop(void)
 {
     if (sp == 0) {
         fprintf(stderr, "ERROR: %s\n", "Stack underflow occured!");

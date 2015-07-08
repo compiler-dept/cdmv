@@ -1,6 +1,6 @@
 BIN=cdvm
 
-CFLAGS=-Wall -Werror -g
+CFLAGS=-std=c11 -Wall -Werror -g
 
 SOURCES=$(wildcard *.c)
 OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
