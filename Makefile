@@ -2,7 +2,8 @@ BIN=cdvm
 
 CFLAGS=-Wall -Werror -g
 
-OBJECTS=cdvm.o
+SOURCES=$(wildcard *.c)
+OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
 
 .PHONY: all clean
 
