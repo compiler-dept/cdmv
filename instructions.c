@@ -67,7 +67,7 @@ void istore(uint8_t reg)
 
 void ijmp(uint16_t position)
 {
-    ip += 3;
+    ip = position;
 }
 
 void ijz(uint16_t position)
