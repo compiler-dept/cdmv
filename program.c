@@ -2,9 +2,9 @@
 
 uint8_t program[PROGRAM_MAX_SIZE];
 
-struct value get_integer(uint16_t position, uint8_t size)
+union value get_integer(uint16_t position, uint8_t size)
 {
-    struct value value;
+    union value value;
 
     switch (size) {
         case 1:
