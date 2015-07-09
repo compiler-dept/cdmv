@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "stack.h"
 
+static const int STACK_SIZE = 256;
+
 int32_t stack[STACK_SIZE];
 uint8_t sp = 0;
 

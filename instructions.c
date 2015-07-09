@@ -5,6 +5,23 @@
 #include "registers.h"
 #include "program.h"
 
+enum instructions {
+    NOP,
+    PUSH,
+    POP,
+    LOAD,
+    STORE,
+    JMP,
+    JZ,
+    JNZ,
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    PRINT,
+    STOP
+};
+
 uint16_t ip = 0;
 
 void inop(void)
