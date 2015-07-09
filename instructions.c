@@ -4,6 +4,7 @@
 #include "stack.h"
 #include "registers.h"
 #include "program.h"
+#include "memory.h"
 
 enum instructions {
     NOP,
@@ -19,7 +20,14 @@ enum instructions {
     MUL,
     DIV,
     PRINT,
-    STOP
+    STOP,
+    MEMLOAD,
+    MEMSTORE
+};
+
+union memconv {
+    int32_t i32;
+    uint8_t u8[2];
 };
 
 uint16_t ip = 0;
@@ -136,6 +144,28 @@ void istop(void)
     exit(EXIT_SUCCESS);
 }
 
+void imemload(uint8_t reg, uint32_t address)
+{
+    union memconv memconv;
+    memconv.i32 = registers[reg];
+
+    memory[address] = memconv.u8[0];
+    memory[address + 1] = memconv.u8[1];
+
+    ip += 6;
+}
+
+void imemstore(uint8_t reg, uint32_t address)
+{
+    union memconv memconv;
+    memconv.u8[0] = memory[address];
+    memconv.u8[1] = memory[address + 1];
+
+    registers[reg] = memconv.i32;
+
+    ip += 6;
+}
+
 void call_instruction(void)
 {
     fprintf(stderr, "ip: %d, opcode: %d", ip, program[ip]);
@@ -198,6 +228,14 @@ void call_instruction(void)
         case STOP:
             fprintf(stderr, "\n");
             istop();
+            break;
+        case MEMLOAD:
+            fprintf(stderr, ", value1: %d, value2: %d\n", get_integer(ip, 1).u8, get_integer(ip + 1, 4).u32);
+            imemload(get_integer(ip, 1).u8, get_integer(ip + 1, 4).u32);
+            break;
+        case MEMSTORE:
+            fprintf(stderr, ", value1: %d, value2: %d\n", get_integer(ip, 1).u8, get_integer(ip + 1, 4).u32);
+            imemstore(get_integer(ip, 1).u8, get_integer(ip + 1, 4).u32);
             break;
     }
 }

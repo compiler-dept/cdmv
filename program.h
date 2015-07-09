@@ -4,11 +4,12 @@
 #include "stdlib.h"
 
 struct value {
-    uint8_t raw[];
+    uint8_t raw[]; // TODO: check the empty square brackets
     union {
         uint8_t u8;
         uint16_t u16;
         int32_t i32;
+        uint32_t u32;
     };
 };
 
